@@ -37,6 +37,9 @@ public class SelectAllView implements Serializable {
       for (ChecklistQandA ans : stage1Questions) {
           System.out.println(" Question : " + ans.getChecklistAttribute().getQuestionNumber() + "  value is " + ans.getToggleValue());
       }
+      System.out.println("End Test");
+      System.out.println();
+      System.out.println();
   }
 
     public long getAssignmentId() {
