@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>PrimeFaces Test</title>
+	<h:outputScript name="test.js" />
+	<h:outputStylesheet name="test.css" />
+</h:head>
+
+<h:body>
+
+
+	<div id="page">
+
+		<div id="content">
+
+			<h1>Select All Radio in a Group</h1>
+			
+			<p>Use blue down arrow to select a group of NA radios</p>
+			<p>The radios do not get visibly selected in the GUI but if you click the Submit button at bottom of page, the radios are actually selected in the bean</p>
+			<p>Try manually selecting a radio in a group and then clicking the Blue Down Arrow and submitting</p>
+			<p>Try clicking the Blue Down Arrow then manually selecting a radio in a group and then submitting</p>
+<p>This test the the functionality that I am trying to achieve.  The test2, and test3 are variants I was testing to help figure out the issue.
+
+			<h:form id="assignmentForm">
+
+				<p:dataTable id="ynnrCheckListId" value="#{selectAllView.stage1Questions}" var="qAndA" tableStyle="width:auto">
+
+					<p:headerRow field="checklistAttribute.questionNumber" rendered="true"
+						groupBy="#{qAndA.checklistAttribute.attributeCategory.id}">
+						<p:column colspan="5" sortOrder="#{qAndA.checklistAttribute.attributeCategory.headerText}">
+							<h:outputText value="#{qAndA.checklistAttribute.attributeCategory.headerText}" />
+						</p:column>
+
+						<p:column colspan="1">
+							<p:button title="This Section Not Applicable" style="float: right;" icon="pi pi-arrow-down" iconPos="right"
+								onclick="selectAllForTest1(#{qAndA.checklistAttribute.attributeCategory.id}); return false;">
+							</p:button>
+
+						</p:column>
+					</p:headerRow>
+
+					<p:column headerText="No." width="50">
+						<h:outputText value="#{qAndA.checklistAttribute.questionNumber}" />
+					</p:column>
+
+
+					<p:column headerText="Attribute" width="400">
+						<h:outputText value="#{qAndA.checklistAttribute.attribute.stem}" title="ID:#{qAndA.checklistAttribute.attribute.id}" />
+					</p:column>
+
+
+					<p:column headerText="Yes" width="50">
+						<p:selectOneRadio id="yesNoNA" value="#{qAndA.toggleValue}" layout="custom" unselectable="true" styleClass="ppp">
+							<f:selectItem itemLabel="Yes" itemValue="YES" />
+							<f:selectItem itemLabel="No Minor" itemValue="NO_MINOR_TEMP" />
+							<f:selectItem itemLabel="No Major" itemValue="NO_MAJOR_TEMP" />
+							<f:selectItem itemLabel="Resolved" itemValue="RESOLVED_MAJOR" />
+							<f:selectItem itemLabel="NA" itemValue="NA" />
+							<f:selectItem itemLabel="Resolved" itemValue="RESOLVED_MINOR" />
+							<f:selectItem itemLabel="No Major" itemValue="NO_MAJOR" />
+							<f:selectItem itemLabel="No Minor" itemValue="NO_MINOR" />
+						</p:selectOneRadio>
+
+						<div align="center">
+							<p:radioButton id="yes" for="yesNoNA" itemIndex="0" rendered="#{empty qAndA.toggleValue}" />
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fa-solid fa-check"
+								rendered="#{qAndA.toggleValue == 'YES'}" />
+							<h:outputText value=""
+								rendered="#{qAndA.toggleValue == 'NO_MAJOR' or qAndA.toggleValue == 'NO_MINOR' or qAndA.toggleValue == 'NA' or qAndA.toggleValue == 'RESOLVED_MAJOR' or qAndA.toggleValue == 'RESOLVED_MINOR'}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="No Minor" width="50">
+						<div align="center">
+							<p:radioButton id="noMinor" for="yesNoNA" itemIndex="1" rendered="#{empty qAndA.toggleValue}" />
+
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fas fa-times"
+								rendered="#{qAndA.toggleValue == 'NO_MINOR' or qAndA.toggleValue == 'RESOLVED_MINOR'}" />
+							<h:outputText value=""
+								rendered="#{qAndA.toggleValue == 'YES' or qAndA.toggleValue == 'NO_MAJOR' or qAndA.toggleValue == 'RESOLVED_MAJOR' or qAndA.toggleValue == 'NA'}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="No Major" width="50">
+						<div align="center">
+							<p:radioButton id="noMajor" for="yesNoNA" itemIndex="2" rendered="#{empty qAndA.toggleValue}" />
+
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fas fa-times"
+								rendered="#{qAndA.toggleValue == 'NO_MAJOR' or qAndA.toggleValue == 'RESOLVED_MAJOR'}" />
+							<h:outputText value=""
+								rendered="#{qAndA.toggleValue == 'YES' or qAndA.toggleValue == 'NO_MINOR' or qAndA.toggleValue == 'RESOLVED_MINOR' or qAndA.toggleValue == 'NA'}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="N/A" width="50">
+						<div align="center">
+							<p:radioButton id="na" widgetVar="na" for="yesNoNA" itemIndex="4" rendered="#{empty qAndA.toggleValue}"
+								styleClass="#{qAndA.checklistAttribute.attributeCategory.id}" />
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fas fa-times" rendered="#{qAndA.toggleValue == 'NA'}" />
+						</div>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:commandButton value="Submit" action="#{selectAllView.submit()}" />
+
+			</h:form>
+
+		</div>
+
+
+	</div>
+
+</h:body>
+</html>

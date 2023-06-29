@@ -1,1 +1,20 @@
 /* Place any CSS here you want loaded in test.xhtml */
+
+
+	body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon {
+		width: 6px;
+		height: 6px;
+		vertical-align: middle;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -3px;
+		margin-left: -3px;
+		border-radius: 50%;
+	}
+	body .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+		border-width: 4px;
+		border-color: #2196F3;
+		background: #000000;
+		color: #76758a;
+	}

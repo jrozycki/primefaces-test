@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:stk="http://xmlns.jcp.org/jsf/composite/cc" xmlns:o="http://omnifaces.org/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<title>PrimeFaces Test</title>
+	<h:outputScript name="test.js" />
+	<h:outputStylesheet name="test.css" />
+</h:head>
+
+<h:body>
+
+
+	<div id="page">
+
+		<div id="content">
+
+			<h1>Another test with different JavaScript</h1>
+			<h:form id="assignmentForm">
+
+
+				<p:dataTable sortMode="multiple" showGridlines="true" stripedRows="false" id="ynnrCheckListId"
+					value="#{selectAllView.stage1Questions}" var="qAndA" style="margin-bottom:2px;" tableStyle="width:auto"
+					rowIndexVar="rowIndex">
+
+
+
+					<p:column headerText="No." width="50">
+						<h:outputText value="#{qAndA.checklistAttribute.questionNumber}" />
+					</p:column>
+
+
+					<p:column headerText="Attribute" width="400">
+						<h:outputText value="#{qAndA.checklistAttribute.attribute.stem}" title="ID:#{qAndA.checklistAttribute.attribute.id}" />
+					</p:column>
+
+
+					<p:column headerText="Yes" width="50">
+						<p:selectOneRadio id="yesNoNA" value="#{qAndA.toggleValue}" layout="custom" unselectable="true" styleClass="ppp">
+							<f:selectItem itemLabel="Yes" itemValue="YES" />
+							<f:selectItem itemLabel="No Minor" itemValue="NO_MINOR_TEMP" />
+							<f:selectItem itemLabel="No Major" itemValue="NO_MAJOR_TEMP" />
+							<f:selectItem itemLabel="Resolved" itemValue="RESOLVED_MAJOR" />
+							<f:selectItem itemLabel="NA" itemValue="NA" />
+							<f:selectItem itemLabel="Resolved" itemValue="RESOLVED_MINOR" />
+							<f:selectItem itemLabel="No Major" itemValue="NO_MAJOR" />
+							<f:selectItem itemLabel="No Minor" itemValue="NO_MINOR" />
+						</p:selectOneRadio>
+
+						<div align="center">
+							<p:radioButton id="yes" for="yesNoNA" itemIndex="0" rendered="#{empty qAndA.toggleValue}" />
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fa-solid fa-check"
+								rendered="#{qAndA.toggleValue == 'YES'}" />
+							<h:outputText value=""
+								rendered="#{qAndA.toggleValue == 'NO_MAJOR' or qAndA.toggleValue == 'NO_MINOR' or qAndA.toggleValue == 'NA' or qAndA.toggleValue == 'RESOLVED_MAJOR' or qAndA.toggleValue == 'RESOLVED_MINOR'}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="No Minor" width="50">
+						<div align="center">
+							<p:radioButton id="noMinor" for="yesNoNA" itemIndex="1" rendered="#{empty qAndA.toggleValue}" />
+
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fas fa-times"
+								rendered="#{qAndA.toggleValue == 'NO_MINOR' or qAndA.toggleValue == 'RESOLVED_MINOR'}" />
+							<h:outputText value=""
+								rendered="#{qAndA.toggleValue == 'YES' or qAndA.toggleValue == 'NO_MAJOR' or qAndA.toggleValue == 'RESOLVED_MAJOR' or qAndA.toggleValue == 'NA'}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="No Major" width="50">
+						<div align="center">
+							<p:radioButton id="noMajor" for="yesNoNA" itemIndex="2" rendered="#{empty qAndA.toggleValue}" />
+
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fas fa-times"
+								rendered="#{qAndA.toggleValue == 'NO_MAJOR' or qAndA.toggleValue == 'RESOLVED_MAJOR'}" />
+							<h:outputText value=""
+								rendered="#{qAndA.toggleValue == 'YES' or qAndA.toggleValue == 'NO_MINOR' or qAndA.toggleValue == 'RESOLVED_MINOR' or qAndA.toggleValue == 'NA'}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="N/A" width="50">
+						<f:facet name="header">
+							<p:button title="Click to mark all radios in this column." icon="pi pi-arrow-down" iconPos="right"
+								onclick="selectAllForTest3(); return false;">
+							</p:button>
+
+						</f:facet>
+
+						<div align="center">
+							<p:radioButton id="na" widgetVar="na" for="yesNoNA" itemIndex="4" rendered="#{empty qAndA.toggleValue}"
+								styleClass="aaa" />
+							<h:outputText style="color: #000; font-size: 24px;" styleClass="fas fa-times" rendered="#{qAndA.toggleValue == 'NA'}" />
+						</div>
+					</p:column>
+
+
+				</p:dataTable>
+
+
+				<p:commandButton  value="Submit"
+					action="#{selectAllView.submit()}" />
+
+
+			</h:form>
+
+		</div>
+
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</h:body>
+</html>
