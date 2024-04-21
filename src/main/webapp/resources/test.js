@@ -8,10 +8,9 @@
         	  var divs = document.getElementsByClassName(divClass);
         	    	for (const div of divs) {
         	    		$(div).find('input:radio:first').each(function() {
-        	       			radio = $(this).attr('id').replaceAll(':','\\:').replace('_clone','');
-        	                console.log("radio " + radio);
-        	    			$('#'+radio+':last').prop('checked', true).change();
-        	    			$('#'+radio+':last').attr('checked', true);
+        	    		    if (!$(this).prop("checked")) {
+        	    		        $(this).closest(".ui-radiobutton").find(".ui-radiobutton-box").trigger("click");
+        	    		    }
         	    		});
           }
 
